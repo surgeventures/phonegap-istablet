@@ -55,18 +55,11 @@ public class IsTablet extends CordovaPlugin {
 	        boolean device_large = ((applicationContext.getResources().getConfiguration().screenLayout &
 	                Configuration.SCREENLAYOUT_SIZE_MASK) >=
 	                Configuration.SCREENLAYOUT_SIZE_LARGE);
-
 	        if (device_large) {
 	            DisplayMetrics metrics = new DisplayMetrics();
 	            Activity activity = this.cordova.getActivity();
 	            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-	            if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
-	                    || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
-	                    || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
-	                    || metrics.densityDpi == DisplayMetrics.DENSITY_TV
-			    || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH
-	                    || metrics.densityDpi == DisplayMetrics.DENSITY_XXHIGH) {
+	            if (metrics.densityDpi >= DisplayMetrics.DENSITY_DEFAULT) {
 	                Log.d(LOG_TAG, "Is Tablet Device");
 	                return true;
 	            }
@@ -74,5 +67,4 @@ public class IsTablet extends CordovaPlugin {
 	        Log.d(LOG_TAG, "Is NOT Tablet Device");
 	        return false;
     }
-
 }
